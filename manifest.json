@@ -1,0 +1,16 @@
+
+{
+  "name": "Survival Game",
+  "short_name": "Survival",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "description": "A basic survival game prototype.",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
