@@ -11,7 +11,38 @@ let player = {
   color: 'green',
   speed: 3,
 };
+// Your existing player
+let player = {
+  x: 100,
+  y: 100,
+  width: 32,
+  height: 32,
+  color: 'green',
+  speed: 3,
+};
 
+// NEW: A red square (enemy or object)
+let redSquare = {
+  x: 400,
+  y: 300,
+  width: 32,
+  height: 32,
+  color: 'red'
+};
+
+function drawRedSquare() {
+  ctx.fillStyle = redSquare.color;
+  ctx.fillRect(redSquare.x, redSquare.y, redSquare.width, redSquare.height);
+}
+
+// Update gameLoop to draw both
+function gameLoop() {
+  clearCanvas();
+  movePlayer();
+  drawPlayer();
+  drawRedSquare(); // draw red square
+  requestAnimationFrame(gameLoop);
+}
 let keys = {};
 
 document.addEventListener('keydown', (e) => {
