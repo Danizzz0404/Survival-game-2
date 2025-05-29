@@ -16,7 +16,7 @@ let player = {
   speed: 3,
 };
 
-// Red square object (test object)
+// Red square object
 let redSquare = {
   x: 400,
   y: 300,
@@ -63,5 +63,4 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
 }
 
-// Start game after image loads
 girlImage.onload = gameLoop;
