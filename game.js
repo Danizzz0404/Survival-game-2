@@ -3,25 +3,20 @@ const ctx = canvas.getContext('2d');
 canvas.width = 800;
 canvas.height = 600;
 
+// Load girl image
+const girlImage = new Image();
+girlImage.src = 'girl.png';
+
+// Girl player
 let player = {
   x: 100,
   y: 100,
-  width: 32,
-  height: 32,
-  color: 'green',
-  speed: 3,
-};
-// Your existing player
-let player = {
-  x: 100,
-  y: 100,
-  width: 32,
-  height: 32,
-  color: 'green',
+  width: 48,
+  height: 48,
   speed: 3,
 };
 
-// NEW: A red square (enemy or object)
+// Red square object (test object)
 let redSquare = {
   x: 400,
   y: 300,
@@ -30,27 +25,13 @@ let redSquare = {
   color: 'red'
 };
 
-function drawRedSquare() {
-  ctx.fillStyle = redSquare.color;
-  ctx.fillRect(redSquare.x, redSquare.y, redSquare.width, redSquare.height);
-}
-
-// Update gameLoop to draw both
-function gameLoop() {
-  clearCanvas();
-  movePlayer();
-  drawPlayer();
-  drawRedSquare(); // draw red square
-  requestAnimationFrame(gameLoop);
-}
 let keys = {};
 
 document.addEventListener('keydown', (e) => {
-  keys[e.key] = true;
+  keys[e.key.toLowerCase()] = true;
 });
-
 document.addEventListener('keyup', (e) => {
-  keys[e.key] = false;
+  keys[e.key.toLowerCase()] = false;
 });
 
 function movePlayer() {
@@ -61,8 +42,12 @@ function movePlayer() {
 }
 
 function drawPlayer() {
-  ctx.fillStyle = player.color;
-  ctx.fillRect(player.x, player.y, player.width, player.height);
+  ctx.drawImage(girlImage, player.x, player.y, player.width, player.height);
+}
+
+function drawRedSquare() {
+  ctx.fillStyle = redSquare.color;
+  ctx.fillRect(redSquare.x, redSquare.y, redSquare.width, redSquare.height);
 }
 
 function clearCanvas() {
@@ -74,7 +59,9 @@ function gameLoop() {
   clearCanvas();
   movePlayer();
   drawPlayer();
+  drawRedSquare();
   requestAnimationFrame(gameLoop);
 }
 
-gameLoop();
+// Start game after image loads
+girlImage.onload = gameLoop;
