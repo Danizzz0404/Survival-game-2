@@ -1,14 +1,49 @@
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = 800;
+canvas.height = 600;
 
-document.addEventListener("DOMContentLoaded", () => {
-  const canvas = document.getElementById("gameCanvas");
-  const ctx = canvas.getContext("2d");
+let player = {
+  x: 100,
+  y: 100,
+  width: 32,
+  height: 32,
+  color: 'green',
+  speed: 3,
+};
 
-  ctx.fillStyle = "skyblue";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "green";
-  ctx.fillRect(0, canvas.height - 100, canvas.width, 100);
+let keys = {};
 
-  ctx.fillStyle = "black";
-  ctx.font = "30px Arial";
-  ctx.fillText("Welcome to Survival Game!", 200, 300);
+document.addEventListener('keydown', (e) => {
+  keys[e.key] = true;
 });
+
+document.addEventListener('keyup', (e) => {
+  keys[e.key] = false;
+});
+
+function movePlayer() {
+  if (keys['w']) player.y -= player.speed;
+  if (keys['s']) player.y += player.speed;
+  if (keys['a']) player.x -= player.speed;
+  if (keys['d']) player.x += player.speed;
+}
+
+function drawPlayer() {
+  ctx.fillStyle = player.color;
+  ctx.fillRect(player.x, player.y, player.width, player.height);
+}
+
+function clearCanvas() {
+  ctx.fillStyle = 'lightblue';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function gameLoop() {
+  clearCanvas();
+  movePlayer();
+  drawPlayer();
+  requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
